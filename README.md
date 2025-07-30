@@ -28,10 +28,10 @@ Configura tu servidor local con PHP (XAMPP o similar)
 Abre el archivo index.php desde tu navegador
 
 👨‍💻 Integrantes del grupo
-Rodrigo Amores
-Santiago Castro
-Gabriela Canteral
-Stiven Panchana
+- Rodrigo Amores
+- Santiago Castro
+- Gabriela Canteral
+- Stiven Panchana
 
 ⚖️ Licencia
-Este proyecto está bajo la licencia MIT. Libre de uso y modificación.
+- Este proyecto está bajo la licencia MIT. Libre de uso y modificación.
