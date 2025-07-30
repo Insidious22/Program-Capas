@@ -18,6 +18,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [activeLetter, setActiveLetter] = useState<string>("Todos");
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -62,9 +63,16 @@ function App() {
     setShowModal(true);
   };
 
-  const filteredContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredContacts = contacts.filter((contact) => {
+    const matchesSearch = contact.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const matchesLetter =
+      activeLetter === "Todos" ||
+      contact.name.charAt(0).toUpperCase() === activeLetter;
+
+    return matchesSearch && matchesLetter;
+  });
 
   return (
     <div className="container mt-5">
@@ -87,6 +95,20 @@ function App() {
         <button className="btn btn-success" onClick={handleAddNew}>
           Agregar contacto
         </button>
+      </div>
+
+      <div className="mb-3 text-center">
+        {["Todos", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((letter) => (
+          <button
+            key={letter}
+            className={`btn btn-sm me-1 mb-1 ${
+              activeLetter === letter ? "btn-primary" : "btn-outline-primary"
+            }`}
+            onClick={() => setActiveLetter(letter)}
+          >
+            {letter}
+          </button>
+        ))}
       </div>
 
       <ContactList
