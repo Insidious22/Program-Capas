@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import ContactForm from "./components/ContactForm";
 import ContactList from "./components/ContactList";
+import ModalForm from "./components/ModalForm";
 
 export type Contact = {
   name: string;
@@ -16,9 +16,9 @@ function App() {
 
   const [editingContact, setEditingContact] = useState<Contact | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterLetter, setFilterLetter] = useState<string>("Todos");
   const [message, setMessage] = useState<string | null>(null);
   const [showModal, setShowModal] = useState(false);
-  const [activeLetter, setActiveLetter] = useState<string>("Todos");
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -41,11 +41,11 @@ function App() {
       setContacts(
         contacts.map((c) => (c.email === editingContact.email ? contact : c))
       );
+      setEditingContact(null);
     } else {
       setContacts([...contacts, contact]);
     }
 
-    setEditingContact(null);
     setShowModal(false);
   };
 
@@ -58,53 +58,62 @@ function App() {
     setShowModal(true);
   };
 
-  const handleAddNew = () => {
-    setEditingContact(null);
-    setShowModal(true);
-  };
-
   const filteredContacts = contacts.filter((contact) => {
     const matchesSearch = contact.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesLetter =
-      activeLetter === "Todos" ||
-      contact.name.charAt(0).toUpperCase() === activeLetter;
-
+      filterLetter === "Todos" ||
+      contact.name.toLowerCase().startsWith(filterLetter.toLowerCase());
     return matchesSearch && matchesLetter;
   });
+
+  const alphabet = Array.from({ length: 26 }, (_, i) =>
+    String.fromCharCode(65 + i)
+  );
 
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Agenda de Contactos</h1>
 
-      {message && (
-        <div className="alert alert-danger" role="alert">
-          {message}
-        </div>
-      )}
+      {message && <div className="alert alert-danger">{message}</div>}
 
-      <div className="mb-3 d-flex justify-content-between">
+      <div className="d-flex justify-content-between align-items-center mb-3">
         <input
           type="text"
           placeholder="Buscar por nombre..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="form-control me-2"
+          className="form-control me-3"
+          style={{ maxWidth: "300px" }}
         />
-        <button className="btn btn-success" onClick={handleAddNew}>
+        <button
+          className="btn btn-success"
+          onClick={() => {
+            setEditingContact(null);
+            setShowModal(true);
+          }}
+        >
           Agregar contacto
         </button>
       </div>
 
-      <div className="mb-3 text-center">
-        {["Todos", ..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].map((letter) => (
+      <div className="mb-3 d-flex flex-wrap gap-2">
+        <button
+          className={`btn btn-sm ${
+            filterLetter === "Todos" ? "btn-primary" : "btn-outline-primary"
+          }`}
+          onClick={() => setFilterLetter("Todos")}
+        >
+          Todos
+        </button>
+        {alphabet.map((letter) => (
           <button
             key={letter}
-            className={`btn btn-sm me-1 mb-1 ${
-              activeLetter === letter ? "btn-primary" : "btn-outline-primary"
+            className={`btn btn-sm ${
+              filterLetter === letter ? "btn-primary" : "btn-outline-primary"
             }`}
-            onClick={() => setActiveLetter(letter)}
+            onClick={() => setFilterLetter(letter)}
           >
             {letter}
           </button>
@@ -117,14 +126,15 @@ function App() {
         onEdit={startEditing}
       />
 
-      <ContactForm
-        onAdd={addContact}
-        editing={editingContact}
-        visible={showModal}
-        onClose={() => setShowModal(false)}
-      />
+      {showModal && (
+        <ModalForm
+          onClose={() => setShowModal(false)}
+          onSubmit={addContact}
+          editing={editingContact}
+        />
+      )}
     </div>
   );
 }
 
-export default App;
+export default App;
