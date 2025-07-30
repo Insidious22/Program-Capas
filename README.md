@@ -2,7 +2,6 @@
 
 Una agenda digital simple pero eficiente que te permite registrar, consultar, editar y eliminar contactos. La aplicación fue desarrollada como parte del curso **Programación en Capas - UCSG (2025)**.
 
----
 
 ## 🚀 Características principales
 
@@ -11,7 +10,6 @@ Una agenda digital simple pero eficiente que te permite registrar, consultar, ed
 - ✏️ Edición y eliminación directa desde la lista
 - 🔒 Validación para evitar registros duplicados
 
----
 
 ## 🧩 Tecnologías utilizadas
 
@@ -19,7 +17,6 @@ Una agenda digital simple pero eficiente que te permite registrar, consultar, ed
 - **PHP** como lógica del servidor
 - **MySQL** para almacenamiento persistente de los contactos
 
----
 
 ## 🧪 Instrucciones para ejecutar
 
@@ -29,21 +26,6 @@ Una agenda digital simple pero eficiente que te permite registrar, consultar, ed
 Importa la base de datos agenda.sql en MySQL
 Configura tu servidor local con PHP (XAMPP o similar)
 Abre el archivo index.php desde tu navegador
-
-📸 Vista previa
-
-📁 Estructura del proyecto
-
-/Program-Capas
-├── /src
-│   ├── index.php
-│   ├── editar.php
-│   └── eliminar.php
-├── /assets
-│   └── estilo.css
-├── /docs
-│   └── manual.pdf
-└── README.md
 
 👨‍💻 Integrantes del grupo
 Rodrigo Amores
