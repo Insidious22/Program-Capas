@@ -26,3 +26,28 @@ Una agenda digital simple pero eficiente que te permite registrar, consultar, ed
 1. Clona el repositorio:
    ```bash
    git clone https://github.com/Insidious22/Program-Capas.git
+Importa la base de datos agenda.sql en MySQL
+Configura tu servidor local con PHP (XAMPP o similar)
+Abre el archivo index.php desde tu navegador
+
+📸 Vista previa
+📁 Estructura del proyecto
+/Program-Capas
+├── /src
+│   ├── index.php
+│   ├── editar.php
+│   └── eliminar.php
+├── /assets
+│   └── estilo.css
+├── /docs
+│   └── manual.pdf
+└── README.md
+
+👨‍💻 Integrantes del grupo
+Rodrigo Amores
+Santiago Castro
+Gabriela Canteral
+Stiven Panchana
+
+⚖️ Licencia
+Este proyecto está bajo la licencia MIT. Libre de uso y modificación.
