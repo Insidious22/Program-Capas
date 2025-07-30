@@ -31,7 +31,9 @@ Configura tu servidor local con PHP (XAMPP o similar)
 Abre el archivo index.php desde tu navegador
 
 📸 Vista previa
+
 📁 Estructura del proyecto
+
 /Program-Capas
 ├── /src
 │   ├── index.php
