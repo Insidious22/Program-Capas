@@ -17,6 +17,7 @@ function App() {
   const [editingContact, setEditingContact] = useState<Contact | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -39,10 +40,12 @@ function App() {
       setContacts(
         contacts.map((c) => (c.email === editingContact.email ? contact : c))
       );
-      setEditingContact(null);
     } else {
       setContacts([...contacts, contact]);
     }
+
+    setEditingContact(null);
+    setShowModal(false);
   };
 
   const deleteContact = (email: string) => {
@@ -51,6 +54,12 @@ function App() {
 
   const startEditing = (contact: Contact) => {
     setEditingContact(contact);
+    setShowModal(true);
+  };
+
+  const handleAddNew = () => {
+    setEditingContact(null);
+    setShowModal(true);
   };
 
   const filteredContacts = contacts.filter((contact) =>
@@ -67,20 +76,30 @@ function App() {
         </div>
       )}
 
-      <input
-        type="text"
-        placeholder="Buscar por nombre..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="form-control mb-4"
-      />
-
-      <ContactForm onAdd={addContact} editing={editingContact} />
+      <div className="mb-3 d-flex justify-content-between">
+        <input
+          type="text"
+          placeholder="Buscar por nombre..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="form-control me-2"
+        />
+        <button className="btn btn-success" onClick={handleAddNew}>
+          Agregar contacto
+        </button>
+      </div>
 
       <ContactList
         contacts={filteredContacts}
         onDelete={deleteContact}
         onEdit={startEditing}
+      />
+
+      <ContactForm
+        onAdd={addContact}
+        editing={editingContact}
+        visible={showModal}
+        onClose={() => setShowModal(false)}
       />
     </div>
   );
