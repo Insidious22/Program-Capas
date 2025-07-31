@@ -16,11 +16,22 @@ function ContactList({ contacts, onDelete, onEdit }: Props) {
           key={contact.email}
           className="list-group-item d-flex justify-content-between align-items-center"
         >
-          <span>
-            <strong>{contact.name}</strong>
-            <br />
-            {contact.email} - {contact.phone}
-          </span>
+          <div className="d-flex align-items-center gap-3">
+            <img
+              src={`https://ui-avatars.com/api/?name=${encodeURIComponent(
+                contact.name
+              )}&background=random&rounded=true`}
+              alt={contact.name}
+              width="40"
+              height="40"
+              className="rounded-circle"
+            />
+            <div>
+              <strong>{contact.name}</strong>
+              <br />
+              {contact.email} - {contact.phone}
+            </div>
+          </div>
           <div>
             <button
               onClick={() => onEdit(contact)}
